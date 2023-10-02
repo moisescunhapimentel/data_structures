@@ -34,7 +34,7 @@ Clear the list and free any allocated memory when you're done using it:
    clear(list);
    ```
 
-For more details on available functions and how to use them, refer to the comments in the lista_duplamente_encadeada.h file.
+For more details on available functions and how to use them, refer to the comments in the `doubly_linked_list.h` file.
 
 ## Contributing
 Contributions are welcome! If you have any improvements, bug fixes, or feature additions, feel free to open an issue or submit a pull request.

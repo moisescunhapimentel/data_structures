@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "circular_linked_list.h"
+#include "doubly_circular_linked_list.h"
 
 TList *create_list()
 {
@@ -16,18 +16,19 @@ TNode *create_node()
 {
     TNode *newNode = (TNode *)malloc(sizeof(TNode));
     newNode->next = NULL;
+    newNode->previous = NULL;
     return newNode;
 }
 
-void add_all(TList *list, TList *lista2)
-{
-    TNode *node = lista2->HEAD;
-    do
-    {
-        insert_end(list, node->data);
-        node = node->next;
-    } while (node != lista2->HEAD);
-}
+// void add_all(TList *list, TList *lista2)
+// {
+//     TNode *node = lista2->HEAD;
+//     do
+//     {
+//         insert_end(list, node->data);
+//         node = node->next;
+//     } while (node != lista2->HEAD);
+// }
 
 void insert_start(TList *list, type *data)
 {
@@ -38,12 +39,15 @@ void insert_start(TList *list, type *data)
     {
         list->HEAD = newNode;
         newNode->next = newNode;
+        newNode->previous = newNode;
     }
     else
     {
-        TNode *ultimo = last(list);
+        TNode *last_element = list->HEAD->previous;
 
-        ultimo->next = newNode;
+        last_element->next = newNode;
+        newNode->previous = last_element;
+        
         newNode->next = list->HEAD;
         list->HEAD = newNode;
     }
@@ -92,10 +96,13 @@ void insert_end(TList *list, type *data)
     TNode *novoNo = create_node();
     novoNo->data = data;
 
-    TNode *last_element = last(list);
+    TNode *last_element = list->HEAD->previous;
 
     novoNo->next = list->HEAD;
+    list->HEAD->previous = novoNo;
+
     last_element->next = novoNo;
+    novoNo->previous = last_element;
 
     list->size++;
 }
@@ -131,15 +138,25 @@ int remove_at(TList *list, int position)
         return 0;
     }
 
-    if (list->HEAD->next == list->HEAD || position == 0)
+    if (list->HEAD->next == list->HEAD)
     {
-        return remove_start(list);
+        free(list->HEAD);
+        list->HEAD = NULL;
+        return 1;
     }
 
-    TNode *previous = get(list, position - 1);
-    TNode *element = previous->next;
+    if(position == list->size){
+        // remove_end(list);
+    }
 
-    previous->next = element->next;
+    TNode *element = get(list, position);
+
+    element->previous->next = element->next; 
+    element->next->previous = element->previous;
+
+    if(element == list->HEAD){
+        list->HEAD = element->next;
+    }
 
     free(element);
 
@@ -154,9 +171,6 @@ int remove_end(TList *list)
 
 void clear(TList *list)
 {
-    if (list->HEAD == NULL)
-        return;
-
     TNode *node = list->HEAD;
     TNode *aux;
 

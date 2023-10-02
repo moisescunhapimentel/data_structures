@@ -47,6 +47,14 @@ TNode *create_node();
 void add_all(TList *list, TList *list2);
 
 /**
+ * @brief Reversed a doubly linked list
+ *
+ * @param list A parameter of type pointer that receives a doubly linked list.
+ * @return New reversed list
+ */
+TList *reversed(TList *list);
+
+/**
  * @brief Inserts an element at the beginning of the list.
  *
  * @param list A parameter of type pointer that receives a doubly linked list.
@@ -54,7 +62,7 @@ void add_all(TList *list, TList *list2);
  * will be added to the list.
  * @return void
  */
-void insert_start(TList *list, void *data);
+int insert_start(TList *list, type *data);
 
 /**
  * @brief Inserts an element at a position in the list.
@@ -66,7 +74,7 @@ void insert_start(TList *list, void *data);
  * will be added to the list.
  * @return void
  */
-void insert_at(TList *list, void *data, int position);
+int insert_at(TList *list, type *data, int position);
 
 /**
  * @brief Inserts an element at the end of the list.
@@ -76,7 +84,7 @@ void insert_at(TList *list, void *data, int position);
  * will be added to the list.
  * @return void
  */
-void insert_end(TList *list, void *data);
+int insert_end(TList *list, type *data);
 
 /**
  * @brief Removes the element from the beginning of the list.
@@ -84,7 +92,7 @@ void insert_end(TList *list, void *data);
  * @param list A parameter of type pointer that receives a doubly linked list.
  * @return void
  */
-void remove_start(TList *list);
+int remove_start(TList *list);
 
 /**
  * @brief Removes the element from a position in the list.
@@ -94,7 +102,7 @@ void remove_start(TList *list);
  * will be removed from the list.
  * @return void
  */
-void remove_at(TList *list, int position);
+int remove_at(TList *list, int position);
 
 /**
  * @brief Removes the last element from the list.
@@ -102,7 +110,7 @@ void remove_at(TList *list, int position);
  * @param list A parameter of type pointer that receives a doubly linked list.
  * @return void
  */
-void remove_end(TList *list);
+int remove_end(TList *list);
 
 /**
  * @brief Clears all elements from the list.

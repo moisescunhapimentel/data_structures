@@ -5,7 +5,7 @@ void test_get(TList *list)
 {
     for (int i = 0; i < list->size; i++)
     {
-        printf("L[%d] = %d\n", i, *(type *)get(list, i)->data);
+        printf("[%d] = %d\n", i, *(type *)get(list, i)->data);
     }
 }
 
@@ -13,27 +13,50 @@ int main()
 {
     TList *list = create_list();
 
-    int element1 = 10, element2, element3;
+    int a = 10, b = 20, c = 30, d = 40;
 
-    insert_start(list, &element1);
-
-    element2 = -10;
-
-    insert_start(list, &element2);
-
-    element3 = 500;
-
-    insert_end(list, &element3);
+    insert_end(list, &a);
+    insert_end(list, &b);
+    insert_end(list, &c);
+    insert_end(list, &d);
 
     print(list);
+    print_previous_next(list);
 
     test_get(list);
 
-    int element4 = -1;
+    TList *reversed_list = reversed(list);
 
-    insert_at(list, &element4, 1);
+    print(reversed_list);
+    print_previous_next(reversed_list);
+
+    test_get(reversed_list);
+
+    insert_at(list, &a, 2);
 
     print(list);
+    print_previous_next(list);
+
+    remove_end(list);
+
+    print(list);
+    print_previous_next(list);
+
+    insert_start(list, &d);
+    insert_end(list, &b);
+
+    print(list);
+    print_previous_next(list);
+
+    clear(list);
+
+    insert_start(list, &d);
+    insert_end(list, &b);
+
+    print(list);
+    print_previous_next(list);
+
+    printf("%d\n", list->size);
 
     return 0;
 }
