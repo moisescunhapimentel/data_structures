@@ -1,16 +1,14 @@
 #include <stdio.h>
 
-/**
- * You can change the type below to any other type. If you want to accept any type, replace 'int' with 'void', like this:
-typedef void type;
-*/
-typedef int type;
-
+typedef struct
+{
+    int data;
+} TData;
 typedef struct node
 {
     struct node *next;
     struct node *previous;
-    type *data;
+    TData data;
 } TNode;
 
 typedef struct
@@ -20,6 +18,20 @@ typedef struct
     int size;
 } TList;
 
+/**
+ * @brief Check if a pointer to a TList is null. If it is null, it will raise an assert
+ *
+ * @param list A parameter of type pointer that receives a linked list.
+ */
+void check_null_list(TList *list);
+
+/**
+ *@brief Makes a safe copy of a [TList]
+ *
+ *@param list A parameter of pointer type that receives a linked list
+ *@return Returns a copy of the list
+ */
+TList *copy(TList *list);
 /**
  * @brief Creates a doubly linked list of type [type].
  *
@@ -33,6 +45,16 @@ TList *create_list();
  * @return Returns a pointer to the created node.
  */
 TNode *create_node();
+
+/**
+ * @brief Checks if a [TList] is empty
+ *
+ * @param list A parameter of pointer type that receives a linked list
+ * @return Returns 1 if the list is empty, or 0 otherwise
+ */
+int empty(TList *list);
+
+void initial_values(TList *list);
 
 /**
  * @brief Adds one doubly linked list to another list.
@@ -62,7 +84,7 @@ TList *reversed(TList *list);
  * will be added to the list.
  * @return void
  */
-int insert_start(TList *list, type *data);
+int insert_start(TList *list, TData data);
 
 /**
  * @brief Inserts an element at a position in the list.
@@ -74,7 +96,7 @@ int insert_start(TList *list, type *data);
  * will be added to the list.
  * @return void
  */
-int insert_at(TList *list, type *data, int position);
+int insert_at(TList *list, TData data, int position);
 
 /**
  * @brief Inserts an element at the end of the list.
@@ -84,7 +106,7 @@ int insert_at(TList *list, type *data, int position);
  * will be added to the list.
  * @return void
  */
-int insert_end(TList *list, type *data);
+int insert_end(TList *list, TData data);
 
 /**
  * @brief Removes the element from the beginning of the list.
@@ -138,3 +160,14 @@ void print_previous_next(TList *list);
  * @return Returns a pointer [TNo] to the specified position.
  */
 TNode *get(TList *list, int position);
+
+/**
+ * @brief Checks the total number of elements in a [TList].
+ *
+ * This function will iterate through the [TList] and count
+ * the total number of elements
+ *
+ * @param list A parameter of type pointer that receives a linked list.
+ * @return Returns the total number of elements in the list
+ */
+int size(TList *list);

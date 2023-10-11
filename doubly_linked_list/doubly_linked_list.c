@@ -1,15 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #include "doubly_linked_list.h"
+
+void check_null_list(TList *list)
+{
+    if (list == NULL)
+    {
+        fprintf(stderr, "*list is not null\n");
+        assert(list != NULL);
+    }
+}
+
+TList *copy(TList *list)
+{
+    check_null_list(list);
+
+    TList *copy_list = create_list();
+
+    if (list->first == NULL)
+        return copy_list;
+
+    TNode *node = list->first;
+
+    while (node != NULL)
+    {
+        insert_end(copy_list, node->data);
+        node = node->next;
+    }
+
+    return copy_list;
+}
 
 TList *create_list()
 {
     TList *list = (TList *)malloc(sizeof(TList));
-    list->first = NULL;
-    list->end = NULL;
-    list->size = 0;
-
+    initial_values(list);
     return list;
 }
 
@@ -19,6 +46,13 @@ TNode *create_node()
     newNode->next = NULL;
     newNode->previous = NULL;
     return newNode;
+}
+
+int empty(TList *list)
+{
+    check_null_list(list);
+
+    return size(list) == 0;
 }
 
 void add_all(TList *list, TList *list2)
@@ -47,7 +81,7 @@ TList *reversed(TList *list)
     return reversed_list;
 }
 
-int insert_start(TList *list, type *data)
+int insert_start(TList *list, TData data)
 {
     TNode *newNode = create_node();
     newNode->data = data;
@@ -68,7 +102,7 @@ int insert_start(TList *list, type *data)
     return 1;
 }
 
-int insert_at(TList *list, type *data, int position)
+int insert_at(TList *list, TData data, int position)
 {
     if (position < 0 || position > list->size)
     {
@@ -89,15 +123,15 @@ int insert_at(TList *list, type *data, int position)
     newNode->data = data;
 
     newNode->previous = oldNode->previous;
+    newNode->next = oldNode;
     oldNode->previous->next = newNode;
     oldNode->previous = newNode;
-    newNode->next = oldNode;
 
     list->size++;
     return 1;
 }
 
-int insert_end(TList *list, type *data)
+int insert_end(TList *list, TData data)
 {
     if (list->end == NULL)
     {
@@ -118,7 +152,7 @@ int insert_end(TList *list, type *data)
 
 int remove_start(TList *list)
 {
-    if (list->first != NULL)
+    if (list->first == NULL)
     {
         return 0;
     }
@@ -143,12 +177,12 @@ int remove_start(TList *list)
 
 int remove_end(TList *list)
 {
-    if (list->end == NULL)
+    if (list->first == NULL)
     {
         return 0;
     }
 
-    if (list->end == list->first)
+    if (list->first->next == NULL)
     {
         return remove_start(list);
     }
@@ -173,8 +207,8 @@ int remove_at(TList *list, int position)
     if (position == list->size - 1)
         return remove_end(list);
 
-    TNode *element = get(list, position);
-    TNode *previous = element->previous;
+    TNode *previous = get(list, position - 1);
+    TNode *element = previous->next;
 
     previous->next = element->next;
     previous->next->previous = previous;
@@ -187,6 +221,8 @@ int remove_at(TList *list, int position)
 
 void clear(TList *list)
 {
+    check_null_list(list);
+
     if (list->first == NULL)
         return;
 
@@ -202,8 +238,14 @@ void clear(TList *list)
 
     } while (node != NULL);
 
-    free(list);
-    create_list(list);
+    initial_values(list);
+}
+
+void initial_values(TList *list)
+{
+    list->first = NULL;
+    list->end = NULL;
+    list->size = 0;
 }
 
 void print(TList *list)
@@ -229,7 +271,7 @@ void print(TList *list)
             printf("=> ");
         }
 
-        printf("%d", *(type *)(node->data));
+        printf("%d", node->data.data);
 
         if (list->end == node)
         {
@@ -258,10 +300,10 @@ void print_previous_next(TList *list)
         }
         else
         {
-            printf("%d <= ", *(type *)(node->previous->data));
+            printf("%d <= ", node->previous->data.data);
         }
 
-        printf("%d", *(type *)(node->data));
+        printf("%d", node->data.data);
 
         if (node->next == NULL)
         {
@@ -269,7 +311,7 @@ void print_previous_next(TList *list)
         }
         else
         {
-            printf(" => %d", *(type *)(node->next->data));
+            printf(" => %d", node->next->data.data);
         }
 
         putchar('\n');
@@ -310,4 +352,24 @@ TNode *get(TList *list, int position)
     }
 
     return node;
+}
+
+int size(TList *list)
+{
+    check_null_list(list);
+
+    if (list->first == NULL)
+        return 0;
+
+    int count = 0;
+
+    TNode *node = list->first;
+
+    do
+    {
+        count++;
+        node = node->next;
+    } while (node != NULL);
+
+    return count;
 }
