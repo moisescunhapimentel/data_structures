@@ -78,7 +78,7 @@ TNode *get(TList *list, int position)
 {
     check_null_list(list);
 
-    if (position < 0 || position >= list->size || list->first == NULL)
+    if (list->first == NULL || position < 0 || position >= list->size)
     {
         return NULL;
     }
@@ -126,8 +126,8 @@ int insert_at(TList *list, TData data, int position)
     TNode *previous = get(list, position - 1);
 
     TNode *newNode = create_node();
-
     newNode->data = data;
+    
     newNode->next = previous->next;
     previous->next = newNode;
 
@@ -163,15 +163,14 @@ void insert_start(TList *list, TData data)
 
     if (list->first == NULL)
     {
-        list->first = newNode;
         list->end = newNode;
-        newNode->next = NULL;
     }
     else
     {
         newNode->next = list->first;
-        list->first = newNode;
     }
+
+    list->first = newNode;
     list->size++;
 }
 
@@ -227,7 +226,6 @@ int remove_end(TList *list)
     list->size--;
 
     return 1;
-    // return remove_at(list, list->size - 1);
 }
 
 int remove_start(TList *list)

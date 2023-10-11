@@ -18,6 +18,27 @@ typedef struct
     int size;
 } TList;
 
+/**
+ * @brief Check if a pointer to a TList is null. If it is null, it will raise an assert
+ *
+ * @param list A parameter of type pointer that receives a linked list.
+ */
+void check_null_list(TList *list);
+
+/**
+ * @brief Clears all elements from the list.
+ *
+ * @param list A parameter of type pointer that receives a linked list.
+ * @return void
+ */
+void clear(TList *list);
+
+/**
+ *@brief Makes a safe copy of a [TList]
+ *
+ *@param list A parameter of pointer type that receives a linked list
+ *@return Returns a copy of the list
+ */
 TList *copy(TList *list);
 
 /**
@@ -27,8 +48,19 @@ TList *copy(TList *list);
  */
 TList *create_list();
 
+/**
+ * @brief Creates a [TNode] node
+ *
+ * @return Returns a reference to the created node
+ */
 TNode *create_node();
 
+/**
+ * @brief Checks if a [TList] is empty
+ *
+ * @param list A parameter of pointer type that receives a linked list
+ * @return Returns 1 if the list is empty, or 0 otherwise
+ */
 int empty(TList *list);
 
 /**
@@ -36,11 +68,14 @@ int empty(TList *list);
  *
  * @param list Parameter of pointer type that receives a circular
  * list.
- * @param position Parameter representing the position of the circular element.
+ * @param position Parameter representing the position of the element.
  * @return Returns a pointer [TNode] to the specified position.
  */
 TNode *get(TList *list, int position);
 
+/**
+ * @brief Initializes the list with default values
+*/
 void initial_values(TList *list);
 
 /**
@@ -102,13 +137,12 @@ int remove_at(TList *list, int position);
 int remove_end(TList *list);
 
 /**
- * @brief Clears all elements from the list.
- *
+ * @brief Checks the total number of elements in a [TList].
+ * 
+ * This function will iterate through the [TList] and count 
+ * the total number of elements
+ * 
  * @param list A parameter of type pointer that receives a linked list.
- * @return void
- */
-void clear(TList *list);
-
+ * @return Returns the total number of elements in the list
+*/
 int size(TList *list);
-
-void check_null_list(TList *list);
