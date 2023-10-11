@@ -11,8 +11,12 @@ This repository contains various data structures implemented in C programming la
 
 ## List of Data Structures
 
-1. [Circular Linked List](./circular_linked_list): Implementation of a circular linked list.
+1. [Linked List](./linked_list): Implementation of a linked list.
 2. [Doubly Linked List](./doubly_linked_list): Implementation of a doubly linked list.
+3. [Circular Linked List](./circular_linked_list): Implementation of a circular linked list.
+4. [Doubly Circular Linked List](./doubly_circular_linked_list): Implementation of a doubly circular linked list.
+5. [Queue](./queue): Implementation of a queue.
+5. [Stack](./stack): Implementation of a stack.
 
 Each folder contains detailed explanations, source code, and usage examples for the respective data structure.
 
