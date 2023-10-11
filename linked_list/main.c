@@ -5,7 +5,7 @@ void print(TList *list)
 {
     for (TNode *no = list->first; no != NULL; no = no->next)
     {
-        printf("%d, ", *((int *)no->data));
+        printf("%d, ", no->data.data);
     }
     putchar('\n');
 }
@@ -20,21 +20,30 @@ int main()
     int d = 300;
     int e = -10;
 
-    insert_end(list, &a);
-    insert_end(list, &b);
-    insert_end(list, &c);
+    TData data;
+
+    data.data = a;
+    insert_end(list, data);
+    data.data = b;
+    insert_end(list, data);
+    data.data = c;
+    insert_end(list, data);
 
     print(list);
 
     clear(list);
 
-    insert_start(list, &a);
-    insert_start(list, &b);
-    insert_start(list, &c);
+    data.data = a;
+    insert_start(list, data);
+    data.data = b;
+    insert_start(list, data);
+    data.data = c;
+    insert_start(list, data);
 
     print(list);
 
-    insert_at(list, &d, 2);
+    data.data = d;
+    insert_at(list, data, 2);
 
     print(list);
 

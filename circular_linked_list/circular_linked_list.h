@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-/**
- *  You can change the type below to any other type. If you want to accept any type, replace 'int' with 'void', like this:
-typedef void type;
-*/
-typedef int type;
-
+typedef struct {
+    int data;
+} TData;
 typedef struct node
 {
     struct node *next;
-    type *data;
+    TData data;
 } TNode;
+
 
 typedef struct
 {
     TNode *HEAD;
     int size;
 } TList;
+
+void initial_values(TList *list);
 
 /**
  * @brief Creates a circular list of type [TList].
@@ -54,7 +54,7 @@ void add_all(TList *list, TList *list2);
  * will be added to the list.
  * @return void
  */
-void insert_start(TList *list, type *data);
+void insert_start(TList *list, TData data);
 
 /**
  * @brief Inserts an element at a position in the list.
@@ -67,7 +67,7 @@ void insert_start(TList *list, type *data);
  * element will be added to the list.
  * @return void
  */
-int insert_at(TList *list, type *data, int position);
+int insert_at(TList *list, TData data, int position);
 
 /**
  * @brief Inserts an element at the end of the circular list.
@@ -78,7 +78,7 @@ int insert_at(TList *list, type *data, int position);
  * will be added to the list.
  * @return void
  */
-void insert_end(TList *list, type *data);
+void insert_end(TList *list, TData data);
 
 /**
  * @brief Removes the element from the beginning of the list.

@@ -14,13 +14,13 @@ void print(TList *list)
 
     TNode *no = list->HEAD;
 
-    printf("%d", *((int *)no->data));
+    printf("%d", no->data.data);
 
     while (no->next != list->HEAD)
     {
         printf(" => ");
         no = no->next;
-        printf("%d", *((int *)no->data));
+        printf("%d", no->data.data);
     }
 
     if (no->next == list->HEAD)
@@ -34,24 +34,30 @@ int main()
     TList *list = create_list();
 
     int a = 10;
-
-    insert_end(list, &a);
+    TData data = {a};
+    insert_end(list, data);
 
     int b = 20;
-
-    insert_end(list, &b);
+    data.data = b;
+    insert_end(list, data);
 
     int c = 30;
+    data.data = c;
 
-    insert_end(list, &c);
+    insert_end(list, data);
 
     print(list);
 
     clear(list);
 
-    insert_start(list, &a);
-    insert_start(list, &b);
-    insert_start(list, &c);
+    data.data = a;
+    insert_start(list, data);
+    data.data = b;
+
+    insert_start(list, data);
+    data.data = c;
+
+    insert_start(list, data);
 
     print(list);
 
@@ -59,7 +65,9 @@ int main()
 
     print(list);
 
-    insert_at(list, &b, 1);
+    data.data = b;
+
+    insert_at(list, data, 1);
 
     print(list);
 

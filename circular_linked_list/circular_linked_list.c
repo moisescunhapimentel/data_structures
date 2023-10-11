@@ -6,10 +6,14 @@
 TList *create_list()
 {
     TList *list = (TList *)malloc(sizeof(TList));
+    initial_values(list);
+    return list;
+}
+
+void initial_values(TList *list)
+{
     list->HEAD = NULL;
     list->size = 0;
-
-    return list;
 }
 
 TNode *create_node()
@@ -29,7 +33,7 @@ void add_all(TList *list, TList *lista2)
     } while (node != lista2->HEAD);
 }
 
-void insert_start(TList *list, type *data)
+void insert_start(TList *list, TData data)
 {
     TNode *newNode = create_node();
     newNode->data = data;
@@ -51,7 +55,7 @@ void insert_start(TList *list, type *data)
     list->size++;
 }
 
-int insert_at(TList *list, type *data, int position)
+int insert_at(TList *list, TData data, int position)
 {
     if (position < 0 || position > list->size)
     {
@@ -81,7 +85,7 @@ int insert_at(TList *list, type *data, int position)
     list->size++;
 }
 
-void insert_end(TList *list, type *data)
+void insert_end(TList *list, TData data)
 {
     if (list->HEAD == NULL)
     {
@@ -168,8 +172,7 @@ void clear(TList *list)
         aux = NULL;
     } while (node != list->HEAD);
 
-    free(list);
-    create_list(list);
+    initial_values(list);
 }
 
 TNode *get(TList *list, int position)
