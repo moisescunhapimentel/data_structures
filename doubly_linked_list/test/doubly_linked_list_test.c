@@ -56,6 +56,31 @@ int remove_elements(int length)
     return size_list;
 }
 
+void testPreviousNext(TList *list)
+{
+    int size_list = size(list);
+
+    TNode *node = list->first;
+    int i = 0;
+
+    while (node != NULL)
+    {
+        CU_ASSERT_PTR_EQUAL(get(list, i), node);
+        node = node->next;
+        i++;
+    }
+
+    node = list->end;
+    i = size_list - 1;
+
+    while (node != NULL)
+    {
+        CU_ASSERT_PTR_EQUAL(get(list, i), node);
+        node = node->previous;
+        i--;
+    }
+}
+
 void testCreateList()
 {
     TList *list = create_list();
@@ -159,6 +184,11 @@ void testRemoveStart()
 
     CU_ASSERT_EQUAL(size(list), 1);
 
+    CU_ASSERT_PTR_EQUAL(list->first->previous, NULL);
+    CU_ASSERT_PTR_EQUAL(list->end->previous, NULL);
+    CU_ASSERT_PTR_EQUAL(list->first->next, NULL);
+    CU_ASSERT_PTR_EQUAL(list->end->next, NULL);
+
     CU_ASSERT_PTR_NOT_EQUAL(list->first, NULL);
     CU_ASSERT_PTR_NOT_EQUAL(list->end, NULL);
 
@@ -200,6 +230,11 @@ void testRemoveEnd()
 
     CU_ASSERT_EQUAL(size(list), 1);
 
+    CU_ASSERT_PTR_EQUAL(list->first->previous, NULL);
+    CU_ASSERT_PTR_EQUAL(list->end->previous, NULL);
+    CU_ASSERT_PTR_EQUAL(list->first->next, NULL);
+    CU_ASSERT_PTR_EQUAL(list->end->next, NULL);
+
     CU_ASSERT_PTR_NOT_EQUAL(list->first, NULL);
     CU_ASSERT_PTR_NOT_EQUAL(list->end, NULL);
 
@@ -239,6 +274,8 @@ void testRemoveAt()
     CU_ASSERT_EQUAL(get(list, 1)->data.data, 30);
     CU_ASSERT_EQUAL(get(list, 2)->data.data, 40);
 
+    testPreviousNext(list);
+
     insert_start(list, (TData){0});
     insert_end(list, (TData){0});
 
@@ -250,6 +287,11 @@ void testRemoveAt()
     CU_ASSERT_EQUAL(get(list, 1)->data.data, 10);
     CU_ASSERT_EQUAL(get(list, 2)->data.data, 40);
     CU_ASSERT_EQUAL(get(list, 3)->data.data, 0);
+
+    testPreviousNext(list);
+
+    CU_ASSERT_PTR_EQUAL(list->first->previous, NULL);
+    CU_ASSERT_PTR_EQUAL(list->end->next, NULL);
 
     remove_at(list, 2);
 
@@ -299,6 +341,11 @@ void testInsertStart()
     CU_ASSERT_EQUAL(get(list, 2)->data.data, 0);
     CU_ASSERT_EQUAL(list->end->data.data, 0);
 
+    testPreviousNext(list);
+
+    CU_ASSERT_PTR_EQUAL(list->first->previous, NULL);
+    CU_ASSERT_PTR_EQUAL(list->end->next, NULL);
+
     clear(list);
 
     insert_start(list, (TData){-1});
@@ -325,6 +372,8 @@ void testInsertEnd()
     CU_ASSERT_EQUAL(get(list, 1)->data.data, 1);
     CU_ASSERT_EQUAL(get(list, 2)->data.data, 2);
     CU_ASSERT_EQUAL(list->end->data.data, 2);
+
+    testPreviousNext(list);
 
     clear(list);
 
