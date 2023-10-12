@@ -1,16 +1,15 @@
 #include <stdio.h>
 
-/**
- *  You can change the type below to any other type. If you want to accept any type, replace 'int' with 'void', like this:
-typedef void type;
-*/
-typedef int type;
+typedef struct
+{
+    int data;
+} TData;
 
 typedef struct node
 {
     struct node *next;
     struct node *previous;
-    type *data;
+    TData data;
 } TNode;
 
 typedef struct
@@ -20,82 +19,116 @@ typedef struct
 } TList;
 
 /**
+ * @brief Check if a pointer to a [TList] is null. If it is null, it will raise an assert
+ *
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
+ */
+void check_null_list(TList *list);
+
+/**
+ * @brief Quickly clears all elements from the list.
+ *
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
+ * list.
+ * @return void
+ */
+void clear(TList *list);
+
+/**
+ *@brief Makes a safe copy of a [TList]
+ *
+ *@param list A parameter of pointer type that receives a doubly circular linked list
+ *@return Returns a copy of the list
+ */
+TList *copy(TList *list);
+
+/**
  * @brief Creates a circular list of type [TList].
  *
- * @return Returns a pointer to the created circular list.
+ * @return Returns a pointer to the created doubly circular linked list.
  */
 TList *create_list();
 
 /**
- * @brief Creates a node for the circular list.
+ * @brief Creates a node for the doubly circular linked list.
  *
  * @return Returns a pointer to the created node.
  */
 TNode *create_node();
 
 /**
- * @brief Adds a circular list to another list.
+ * @brief Checks if a [TList] is empty
  *
- * This function adds all elements of a circular list
- * of type [TList] into another circular list.
- * @param list Parameter of pointer type that receives a circular
- * list that will receive the new elements.
- * @param list2 Parameter of pointer type that contains the circular list
- * that will be added to the previous list.
- * @return void
+ * @param list A parameter of pointer type that receives a doubly circular linked list
+ * @return Returns 1 if the list is empty, or 0 otherwise
  */
-void add_all(TList *list, TList *list2);
+int empty(TList *list);
 
 /**
- * @brief Inserts an element at the beginning of the list.
+ * @brief Gets the element from the list given its position.
  *
- * @param list Parameter of pointer type that receives a circular
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
  * list.
- * @param data Parameter containing a [type] that
- * will be added to the list.
- * @return void
+ * @param position Parameter representing the position of the element.
+ * @return Returns a pointer [TNode] to the specified position.
  */
-void insert_start(TList *list, type *data);
+TNode *get(TList *list, int position);
+
+/**
+ * @brief Initializes the list with default values
+ */
+void initial_values(TList *list);
 
 /**
  * @brief Inserts an element at a position in the list.
  *
- * @param list Parameter of pointer type that receives a circular
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
  * list.
- * @param data Parameter containing a [type] that
+ * @param data Parameter containing a [TData] that
  * will be added to the list.
- * @param position Parameter containing the position at which the student
+ * @param position Parameter containing the position at which the
  * element will be added to the list.
  * @return void
  */
-int insert_at(TList *list, type *data, int position);
+int insert_at(TList *list, TData data, int position);
 
 /**
- * @brief Inserts an element at the end of the circular list.
+ * @brief Inserts an element at the end of the doubly circular linked list.
  *
- * @param list Parameter of pointer type that receives a circular
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
  * list.
- * @param data Parameter containing a [type] that
+ * @param data Parameter containing a [TData] that
  * will be added to the list.
  * @return void
  */
-void insert_end(TList *list, type *data);
+void insert_end(TList *list, TData data);
 
 /**
- * @brief Removes the element from the beginning of the list.
+ * @brief Inserts an element at the beginning of the list.
  *
- * @param list Parameter of pointer type that receives a circular
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
  * list.
+ * @param data Parameter containing a [TData] that
+ * will be added to the list.
  * @return void
  */
-int remove_start(TList *list);
+void insert_start(TList *list, TData data);
+
+/**
+ * @brief Gets the last element of the doubly circular linked list.
+ *
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
+ * list.
+ * @return Returns a pointer [TNode] to the last element of the list.
+ */
+TNode *last(TList *list);
 
 /**
  * @brief Removes the element from a position in the list.
  *
- * @param list Parameter of pointer type that receives a circular
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
  * list.
- * @param position Parameter containing the position at which the student
+ * @param position Parameter containing the position at which the
  * element will be removed from the list.
  * @return Returns 1 if the operation is successful, and 0 otherwise.
  */
@@ -104,36 +137,28 @@ int remove_at(TList *list, int position);
 /**
  * @brief Removes the last element from the circular list.
  *
- * @param list Parameter of pointer type that receives a circular
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
  * list.
  * @return Returns 1 if the operation is successful, and 0 otherwise.
  */
 int remove_end(TList *list);
 
 /**
- * @brief Quickly clears all elements from the list.
+ * @brief Removes the element from the beginning of the list.
  *
- * @param list Parameter of pointer type that receives a circular
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
  * list.
  * @return void
  */
-void clear(TList *list);
+int remove_start(TList *list);
 
 /**
- * @brief Gets the element from the list given its position.
+ * @brief Checks the total number of elements in a [TList].
  *
- * @param list Parameter of pointer type that receives a circular
- * list.
- * @param position Parameter representing the position of the circular element.
- * @return Returns a pointer [TNo] to the specified position.
- */
-TNode *get(TList *list, int position);
-
-/**
- * @brief Gets the last element of the circular list.
+ * This function will iterate through the [TList] and count
+ * the total number of elements
  *
- * @param list Parameter of pointer type that receives a circular
- * list.
- * @return Returns a pointer [TNo] to the last element of the list.
+ * @param list A parameter of type pointer that receives a doubly circular linked list.
+ * @return Returns the total number of elements in the list
  */
-TNode *last(TList *list);
+int size(TList *list);

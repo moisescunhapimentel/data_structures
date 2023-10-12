@@ -38,5 +38,8 @@ test: all
 # clean:
 # rm -f $(OBJ_FILES) $(TEST_EXECUTABLE)
 
+clean:
+	rm *.o
+
 # Indique que 'test' é um alvo phony, ou seja, não gera um arquivo chamado 'test'
 .PHONY: test
