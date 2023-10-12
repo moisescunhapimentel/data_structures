@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-typedef struct {
+typedef struct
+{
     int data;
 } TData;
 typedef struct node
@@ -9,15 +10,35 @@ typedef struct node
     TData data;
 } TNode;
 
-
 typedef struct
 {
     TNode *HEAD;
     int size;
 } TList;
 
-void initial_values(TList *list);
+/**
+ * @brief Check if a pointer to a TList is null. If it is null, it will raise an assert
+ *
+ * @param list A parameter of type pointer that receives a linked list.
+ */
+void check_null_list(TList *list);
 
+/**
+ * @brief Quickly clears all elements from the list.
+ *
+ * @param list Parameter of pointer type that receives a circular
+ * list.
+ * @return void
+ */
+void clear(TList *list);
+
+/**
+ *@brief Makes a safe copy of a [TList]
+ *
+ *@param list A parameter of pointer type that receives a linked list
+ *@return Returns a copy of the list
+ */
+TList *copy(TList *list);
 /**
  * @brief Creates a circular list of type [TList].
  *
@@ -33,28 +54,27 @@ TList *create_list();
 TNode *create_node();
 
 /**
- * @brief Adds a circular list to another list.
+ * @brief Checks if a [TList] is empty
  *
- * This function adds all elements of a circular list
- * of type [TList] into another circular list.
- * @param list Parameter of pointer type that receives a circular
- * list that will receive the new elements.
- * @param list2 Parameter of pointer type that contains the circular list
- * that will be added to the previous list.
- * @return void
+ * @param list A parameter of pointer type that receives a linked list
+ * @return Returns 1 if the list is empty, or 0 otherwise
  */
-void add_all(TList *list, TList *list2);
+int empty(TList *list);
 
 /**
- * @brief Inserts an element at the beginning of the list.
+ * @brief Gets the element from the list given its position.
  *
  * @param list Parameter of pointer type that receives a circular
  * list.
- * @param data Parameter containing a [type] that
- * will be added to the list.
- * @return void
+ * @param position Parameter representing the position of the circular element.
+ * @return Returns a pointer [TNo] to the specified position.
  */
-void insert_start(TList *list, TData data);
+TNode *get(TList *list, int position);
+
+/**
+ * @brief Initializes the list with default values
+ */
+void initial_values(TList *list);
 
 /**
  * @brief Inserts an element at a position in the list.
@@ -81,13 +101,24 @@ int insert_at(TList *list, TData data, int position);
 void insert_end(TList *list, TData data);
 
 /**
- * @brief Removes the element from the beginning of the list.
+ * @brief Inserts an element at the beginning of the list.
  *
  * @param list Parameter of pointer type that receives a circular
  * list.
+ * @param data Parameter containing a [type] that
+ * will be added to the list.
  * @return void
  */
-int remove_start(TList *list);
+void insert_start(TList *list, TData data);
+
+/**
+ * @brief Gets the last element of the circular list.
+ *
+ * @param list Parameter of pointer type that receives a circular
+ * list.
+ * @return Returns a pointer [TNo] to the last element of the list.
+ */
+TNode *last(TList *list);
 
 /**
  * @brief Removes the element from a position in the list.
@@ -110,29 +141,21 @@ int remove_at(TList *list, int position);
 int remove_end(TList *list);
 
 /**
- * @brief Quickly clears all elements from the list.
+ * @brief Removes the element from the beginning of the list.
  *
  * @param list Parameter of pointer type that receives a circular
  * list.
  * @return void
  */
-void clear(TList *list);
+int remove_start(TList *list);
 
 /**
- * @brief Gets the element from the list given its position.
+ * @brief Checks the total number of elements in a [TList].
  *
- * @param list Parameter of pointer type that receives a circular
- * list.
- * @param position Parameter representing the position of the circular element.
- * @return Returns a pointer [TNo] to the specified position.
- */
-TNode *get(TList *list, int position);
-
-/**
- * @brief Gets the last element of the circular list.
+ * This function will iterate through the [TList] and count
+ * the total number of elements
  *
- * @param list Parameter of pointer type that receives a circular
- * list.
- * @return Returns a pointer [TNo] to the last element of the list.
+ * @param list A parameter of type pointer that receives a linked list.
+ * @return Returns the total number of elements in the list
  */
-TNode *last(TList *list);
+int size(TList *list);
