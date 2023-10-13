@@ -34,4 +34,32 @@ To use any of the data structures provided in this repository, follow these gene
 
 ## Contributing
 
-If you'd like to contribute to this repository, feel free to open an issue or submit a pull request. Contributions, bug reports, and feature requests are welcome! Please make sure to follow the [code of conduct](./CODE_OF_CONDUCT.md).
+If you'd like to contribute to this repository, feel free to open an issue or submit a pull request.
+
+To add a new data structure, you need to follow a set of rules.
+
+1. Define the name of the data structure, without spaces and separated by underscores, for example, `linked_list`.
+
+2. Create a folder with the chosen name.
+
+3. Inside the folder, you should create an .h file with the same name as the folder, responsible for documenting the functions.
+
+4. Inside the folder, you should also create a .c file with the same name as the folder, responsible for implementing the functions described in the .h file.
+
+5. Inside the folder, create a subfolder named test.
+
+6. Inside the test subfolder, create a .c file with the name chosen in step 2, appending _test to the end of the filename.
+
+For example, if you choose `linked_list` in step 2, you will create the `linked_list/` folder. Inside `linked_list/`, you will have two files, `linked_list.h` and `linked_list.c.` In addition to these files, there is a `test/` folder. Inside `test/`, you will find `linked_list_test.c.`
+
+Diagram of the example above:
+
+```
+/data_structures
+└── linked_list/
+    ├── linked_list.h
+    ├── linked_list.c
+    └── test/
+        └── linked_list_test.c
+```
+
