@@ -24,7 +24,6 @@ jobs:
 
     - name: Install CUnit
       run: |
-        sudo apt update
         sudo apt install -y libcunit1 libcunit1-doc libcunit1-dev
       working-directory: ${{ github.workspace }}
 
