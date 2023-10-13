@@ -7,6 +7,7 @@ This repository contains various data structures implemented in C programming la
 - [List of Data Structures](#list-of-data-structures)
 - [How to Use](#how-to-use)
 - [Contributing](#contributing)
+- [Running Tests with Docker](#running-tests-with-docker)
 <!-- - [License](#license) -->
 
 ## List of Data Structures
@@ -63,3 +64,26 @@ Diagram of the example above:
         └── linked_list_test.c
 ```
 
+## Running Tests with Docker
+
+To simplify our development process, we will use `Docker` to run tests locally on your machine. You need to have `Docker` installed.
+
+After making changes or adding code to this project, you can rerun the tests. It is recommended not to modify the `Dockerfile`, and using the `docker-compose.yml` is advised to streamline the process.
+
+Please note that the `-d` flag hides the output of ctest, so do not use it when running `Docker` commands in the terminal.
+
+When you make code changes, follow these steps:
+
+```bash
+$docker compose up --build
+```
+If you have already run the previous command and haven't made further code changes, you can run:
+
+```bash
+$docker compose up
+```
+If, for some reason, you don't see the output of ctest after running the first command, you can check the information with:
+
+```bash
+$docker logs data-structures
+```

@@ -1,0 +1,9 @@
+version: '3.0'
+services:
+  data-structures-service: 
+    container_name: data-structures
+    image: data-structures
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
