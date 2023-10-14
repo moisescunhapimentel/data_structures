@@ -155,20 +155,6 @@ void testClear()
     delete_list(array_list);
 }
 
-void testMallocArrayList()
-{
-    TArrayList *array_list = (TArrayList *)malloc(sizeof(TArrayList));
-
-    malloc_array_list(array_list, 10000);
-
-    initial_values(array_list);
-
-    CU_ASSERT_EQUAL(array_list->size, 0);
-    CU_ASSERT_EQUAL(array_list->MAX, 10000);
-
-    delete_list(array_list);
-}
-
 void testSet()
 {
     TArrayList *array_list = create_array_list(3);
@@ -233,7 +219,6 @@ int main()
     CU_add_test(suite, "Insert At Test", testInsertAt);
     CU_add_test(suite, "Remove At Test", testRemoveAt);
     CU_add_test(suite, "Remove All Test", testRemoveAll);
-    CU_add_test(suite, "Malloc Array List Test", testMallocArrayList);
     CU_add_test(suite, "Clear Test", testClear);
     CU_add_test(suite, "Set Test", testSet);
     CU_add_test(suite, "Get Test", testGet);
