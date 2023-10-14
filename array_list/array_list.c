@@ -33,17 +33,21 @@ TData *copy_tdata(TData *tData)
 
 void clear(TArrayList *array_list)
 {
-    int size_array_list = array_list->size;
+    check_null_array_list(array_list);
 
-    for (int i = 0; i < size_array_list; i++)
+    for (int i = 0; i < array_list->size; i++)
     {
-        remove_at(array_list, array_list->size - 1);
+        free(array_list->array[i]);
+        array_list->array[i] = NULL;
     }
+
+    initial_values(array_list);
 }
 
 TData *create_tdata()
 {
     TData *tData = (TData *)malloc(sizeof(TData));
+    return tData;
 }
 void check_length(int length)
 {
@@ -89,16 +93,24 @@ TArrayList *create_array_list(int length)
 
 void delete_list(TArrayList *array_list)
 {
-    clear(array_list);
+    check_null_array_list(array_list);
+
+    for (int i = 0; i < array_list->size; i++)
+    {
+        free(array_list->array[i]);
+    }
+
     free(array_list->array);
     free(array_list);
 }
 
-int equals_tdata(TData data, TData other){
+int equals_tdata(TData data, TData other)
+{
     return data.data = other.data;
 }
 
-int empty(TArrayList *array_list){
+int empty(TArrayList *array_list)
+{
     return array_list->size == 0;
 }
 
