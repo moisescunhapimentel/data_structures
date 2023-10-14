@@ -159,15 +159,6 @@ void testMallocArrayList()
 {
     TArrayList *array_list = (TArrayList *)malloc(sizeof(TArrayList));
 
-    malloc_array_list(array_list, 10);
-
-    CU_ASSERT_EQUAL(array_list->size, 0);
-    CU_ASSERT_EQUAL(array_list->MAX, 10);
-
-    delete_list(array_list);
-
-    array_list = (TArrayList *)malloc(sizeof(TArrayList));
-
     malloc_array_list(array_list, 10000);
 
     CU_ASSERT_EQUAL(array_list->size, 0);

@@ -98,6 +98,9 @@ int equals_tdata(TData data, TData other);
  */
 int empty(TArrayList *array_list);
 
+/**
+ * @brief Gets the element of [TArrayList] starting at position.
+ */
 TData get(TArrayList *array_list, int position);
 
 /**

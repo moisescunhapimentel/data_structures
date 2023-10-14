@@ -84,7 +84,7 @@ void check_index_range(TArrayList *array_list, int index)
 
 TArrayList *create_array_list(int length)
 {
-    TArrayList *array_list = array_list = (TArrayList *)malloc(sizeof(TArrayList));
+    TArrayList *array_list = (TArrayList *)malloc(sizeof(TArrayList));
 
     malloc_array_list(array_list, length);
 
@@ -114,15 +114,11 @@ int empty(TArrayList *array_list)
     return array_list->size == 0;
 }
 
-/**
- * @brief Obtém o elemento de [TArrayList] a partir da posição.
- */
 TData get(TArrayList *array_list, int position)
 {
     check_null_array_list(array_list);
     check_index_range(array_list, position);
 
-    // TData *tdata = create_tdata();
     return *array_list->array[position];
 }
 
