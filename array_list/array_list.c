@@ -106,7 +106,7 @@ void delete_list(TArrayList *array_list)
 
 int equals_tdata(TData data, TData other)
 {
-    return data.data = other.data;
+    return data.data == other.data;
 }
 
 int empty(TArrayList *array_list)
