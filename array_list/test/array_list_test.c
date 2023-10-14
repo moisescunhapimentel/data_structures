@@ -161,6 +161,8 @@ void testMallocArrayList()
 
     malloc_array_list(array_list, 10000);
 
+    initial_values(array_list);
+
     CU_ASSERT_EQUAL(array_list->size, 0);
     CU_ASSERT_EQUAL(array_list->MAX, 10000);
 
