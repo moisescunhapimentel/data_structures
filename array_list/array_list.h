@@ -20,7 +20,7 @@ typedef struct
  *
  * @return Returns an integer indicating whether the operation was successful
  */
-int add(TArrayList *array_list, TData *data);
+int add(TArrayList *array_list, TData data);
 
 /**
  * @brief Deletes all elements from a [TArrayList].
@@ -35,6 +35,15 @@ int add(TArrayList *array_list, TData *data);
  */
 void clear(TArrayList *array_list);
 
+TData *copy_tdata(TData *tData);
+
+/**
+ * @brief Check if the index is valid
+ *
+ * @param array_list Parameter containing the [TArrayList]
+ */
+void check_index_range(TArrayList *array_list, int index);
+
 /**
  * @brief Check if [length] is non-negative.
  *
@@ -46,12 +55,14 @@ void check_length(int length);
  * @brief Check if [TArrayList] is valid and if [array] is valid.
  *
  * If [TArrayList] is [NULL] or [array] is [NULL], it will trigger an [assert].
+ * @param array_list Parameter containing the [TArrayList]
  */
 void check_null_array_list(TArrayList *array_list);
 
 /**
  * @brief Allocate a new [TArrayList]
  *
+ * @param array_list Parameter containing the [TArrayList]
  * @return Returns a pointer to the allocated [TArrayList]
  */
 TArrayList *create_array_list(int length);
@@ -64,6 +75,32 @@ TArrayList *create_array_list(int length);
 TData *create_tdata();
 
 /**
+ * @brief Delete and deallocate the [TArrayList]
+ *
+ * @param array_list Parameter containing the [TArrayList]
+ */
+void delete_list(TArrayList *array_list);
+
+/**
+ * @brief Compare two [TData]
+ *
+ * @param data Parameter [TData]
+ * @param other Parameter [TData] that will be compared with [data]
+ * @return Returns 1 if [data] and [other] are equal
+ */
+int equals_tdata(TData data, TData other);
+
+/**
+ * @brief Check if [TArrayList] is empty
+ *
+ * @param array_list Parameter containing the [TArrayList]
+ * @return Returns 1 if [array_list] is empty
+ */
+int empty(TArrayList *array_list);
+
+TData get(TArrayList *array_list, int position);
+
+/**
  * @brief Add a [TData] at a specified position in the [TArrayList]
  *
  * @param array_list Parameter containing the [TArrayList]
@@ -72,7 +109,7 @@ TData *create_tdata();
  *
  * @return Returns an integer indicating whether the operation was successful
  */
-int insert_at(TArrayList *array_list, TData *data, int position);
+int insert_at(TArrayList *array_list, TData data, int position);
 
 /**
  * @brief Initialize the [TArrayList] with default values
@@ -116,3 +153,10 @@ void remove_at(TArrayList *array_list, int position);
  * @param data Parameter containing the [TData] to be removed
  */
 void remove_all(TArrayList *array_list, TData data);
+
+/**
+ * @brief Change the value of [TData] at a specific position
+ *
+ * @param array_list Parameter containing the [TArrayList]
+ */
+void set(TArrayList *array_list, TData data, int position);

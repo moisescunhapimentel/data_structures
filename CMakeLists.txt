@@ -7,11 +7,6 @@ file(GLOB PASTAS RELATIVE ${CMAKE_SOURCE_DIR} "*")
 list(FILTER PASTAS EXCLUDE REGEX "^\\..*") 
 list(REMOVE_ITEM PASTAS "build")
 
-# foreach(PASTA ${PASTAS})
-# list(APPEND DIRS ${item})
-# message("Pasta encontrada: ${PASTA}")
-# endforeach()
-
 foreach(PASTA ${PASTAS})
     if(IS_DIRECTORY "${CMAKE_SOURCE_DIR}/${PASTA}")
         add_library(${PASTA} ${PASTA}/${PASTA}.c)

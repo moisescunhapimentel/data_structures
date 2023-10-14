@@ -5,7 +5,7 @@
 
 #include "array_list.h"
 
-int add(TArrayList *array_list, TData *data)
+int add(TArrayList *array_list, TData data)
 {
     check_null_array_list(array_list);
 
@@ -14,10 +14,21 @@ int add(TArrayList *array_list, TData *data)
         realloc_array_list(array_list, (int)ceil(array_list->size * 1.5));
     }
 
-    array_list->array[array_list->size] = data;
+    TData *p_tdata = create_tdata();
+    *p_tdata = data;
+
+    array_list->array[array_list->size] = p_tdata;
     array_list->size++;
 
     return 1;
+}
+
+TData *copy_tdata(TData *tData)
+{
+    TData *p_copy_tdata = create_tdata();
+    *p_copy_tdata = *tData;
+
+    return p_copy_tdata;
 }
 
 void clear(TArrayList *array_list)
@@ -58,6 +69,15 @@ void check_null_array_list(TArrayList *array_list)
     }
 }
 
+void check_index_range(TArrayList *array_list, int index)
+{
+    if (index < 0 || index >= array_list->size)
+    {
+        fprintf(stderr, "index out of range [%d-%d)\n", 0, array_list->size);
+        assert(index >= 0 && index < array_list->size);
+    }
+}
+
 TArrayList *create_array_list(int length)
 {
     TArrayList *array_list = array_list = (TArrayList *)malloc(sizeof(TArrayList));
@@ -67,12 +87,39 @@ TArrayList *create_array_list(int length)
     initial_values(array_list);
 }
 
+void delete_list(TArrayList *array_list)
+{
+    clear(array_list);
+    free(array_list->array);
+    free(array_list);
+}
+
+int equals_tdata(TData data, TData other){
+    return data.data = other.data;
+}
+
+int empty(TArrayList *array_list){
+    return array_list->size == 0;
+}
+
+/**
+ * @brief Obtém o elemento de [TArrayList] a partir da posição.
+ */
+TData get(TArrayList *array_list, int position)
+{
+    check_null_array_list(array_list);
+    check_index_range(array_list, position);
+
+    // TData *tdata = create_tdata();
+    return *array_list->array[position];
+}
+
 void initial_values(TArrayList *array_list)
 {
     array_list->size = 0;
 }
 
-int insert_at(TArrayList *array_list, TData *data, int position)
+int insert_at(TArrayList *array_list, TData data, int position)
 {
     check_null_array_list(array_list);
 
@@ -100,7 +147,10 @@ int insert_at(TArrayList *array_list, TData *data, int position)
         i--;
     }
 
-    array_list->array[position] = data;
+    TData *p_tdata = create_tdata();
+    *p_tdata = data;
+
+    array_list->array[position] = p_tdata;
 
     array_list->size++;
 }
@@ -140,11 +190,7 @@ void remove_at(TArrayList *array_list, int position)
 {
     check_null_array_list(array_list);
 
-    if (position < 0 || position >= array_list->size)
-    {
-        fprintf(stderr, "index out of range [%d-%d)\n", 0, array_list->size);
-        assert(position < 0 || position > array_list->size);
-    }
+    check_index_range(array_list, position);
 
     if (array_list->size == 1)
     {
@@ -193,4 +239,12 @@ void remove_all(TArrayList *array_list, TData data)
     }
 
     array_list->size -= jump;
+}
+
+void set(TArrayList *array_list, TData data, int position)
+{
+    check_null_array_list(array_list);
+    check_index_range(array_list, position);
+
+    *array_list->array[position] = data;
 }

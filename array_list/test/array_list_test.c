@@ -3,12 +3,6 @@
 #include <stdlib.h>
 #include "../array_list.h"
 
-void clean_list(TArrayList *array_list)
-{
-    // clear(array_list);
-    // free(array_list);
-}
-
 void print(TArrayList *array_list)
 {
     check_null_array_list(array_list);
@@ -38,7 +32,7 @@ void testCreateArrayList()
     CU_ASSERT_EQUAL(array_list->size, 0);
     CU_ASSERT_EQUAL(array_list->MAX, 1);
 
-    clean_list(array_list);
+    delete_list(array_list);
 }
 
 void testAdd()
@@ -49,9 +43,7 @@ void testAdd()
 
     for (int i = 0; i < 10; i++)
     {
-        TData *data = create_tdata();
-        data->data = (i + 1) * 10;
-        add(array_list, data);
+        add(array_list, (TData){(i + 1) * 10});
     }
 
     for (int i = 0; i < 10; i++)
@@ -59,28 +51,31 @@ void testAdd()
         CU_ASSERT_EQUAL(array_list->array[i]->data, (i + 1) * 10);
     }
 
-    clean_list(array_list);
+    clear(array_list);
+
+    for (size_t i = 0; i < 10000; i++)
+    {
+        add(array_list, (TData){0});
+    }
+
+    CU_ASSERT_EQUAL(array_list->size, 10000);
+
+    delete_list(array_list);
 }
 
 void testInsertAt()
 {
     TArrayList *array_list = create_array_list(0);
 
-    TData *data = create_tdata();
+    add(array_list, (TData){20});
+    add(array_list, (TData){30});
+    insert_at(array_list, (TData){0}, 0);
 
-    data->data = 20;
+    CU_ASSERT_EQUAL(array_list->array[0]->data, 0);
+    CU_ASSERT_EQUAL(array_list->array[1]->data, 20);
+    CU_ASSERT_EQUAL(array_list->array[2]->data, 30);
 
-    add(array_list, data);
-
-    data->data = 30;
-
-    add(array_list, data);
-
-    data->data = 0;
-
-    insert_at(array_list, data, 0);
-
-    clean_list(array_list);
+    delete_list(array_list);
 }
 
 void testRemoveAt()
@@ -91,7 +86,7 @@ void testRemoveAt()
     {
         TData *tData = create_tdata();
         tData->data = (i + 1) * 10;
-        add(array_list, tData);
+        add(array_list, (TData){(i + 1) * 10});
     }
 
     remove_at(array_list, 3);
@@ -112,31 +107,19 @@ void testRemoveAt()
 
     CU_ASSERT_EQUAL(array_list->array[0]->data, 20);
     CU_ASSERT_EQUAL(array_list->size, 1);
+
+    delete_list(array_list);
 }
 
 void testRemoveAll()
 {
     TArrayList *array_list = create_array_list(0);
 
-    TData *tData = create_tdata();
-    tData->data = 10;
-    add(array_list, tData);
-
-    tData = create_tdata();
-    tData->data = 20;
-    add(array_list, tData);
-
-    tData = create_tdata();
-    tData->data = 20;
-    add(array_list, tData);
-
-    tData = create_tdata();
-    tData->data = 30;
-    add(array_list, tData);
-
-    tData = create_tdata();
-    tData->data = 20;
-    add(array_list, tData);
+    add(array_list, (TData){10});
+    add(array_list, (TData){20});
+    add(array_list, (TData){20});
+    add(array_list, (TData){30});
+    add(array_list, (TData){20});
 
     remove_all(array_list, (TData){20});
 
@@ -147,6 +130,8 @@ void testRemoveAll()
     CU_ASSERT_PTR_EQUAL(array_list->array[3], NULL);
 
     CU_ASSERT_EQUAL(array_list->size, 2);
+
+    delete_list(array_list);
 }
 
 void testClear()
@@ -155,9 +140,7 @@ void testClear()
 
     for (int i = 0; i < 10000; i++)
     {
-        TData *tData = create_tdata();
-        tData->data = 10;
-        add(array_list, tData);
+        add(array_list, (TData){0});
     }
 
     CU_ASSERT_EQUAL(array_list->size, 10000);
@@ -168,7 +151,86 @@ void testClear()
 
     CU_ASSERT_EQUAL(array_list->size, 0);
     CU_ASSERT_EQUAL(array_list->MAX, MAX);
+
+    delete_list(array_list);
 }
+
+void testMallocArrayList()
+{
+    TArrayList *array_list = (TArrayList *)malloc(sizeof(TArrayList));
+
+    malloc_array_list(array_list, 10);
+
+    CU_ASSERT_EQUAL(array_list->size, 0);
+    CU_ASSERT_EQUAL(array_list->MAX, 10);
+
+    delete_list(array_list);
+
+    array_list = (TArrayList *)malloc(sizeof(TArrayList));
+
+    malloc_array_list(array_list, 10000);
+
+    CU_ASSERT_EQUAL(array_list->size, 0);
+    CU_ASSERT_EQUAL(array_list->MAX, 10000);
+
+    delete_list(array_list);
+}
+
+void testSet()
+{
+    TArrayList *array_list = create_array_list(3);
+
+    for (int i = 0; i < array_list->MAX; i++)
+    {
+        add(array_list, (TData){(i + 1) * 10});
+    }
+
+    set(array_list, (TData){-1}, 1);
+
+    CU_ASSERT_EQUAL(array_list->array[0]->data, 10);
+    CU_ASSERT_EQUAL(array_list->array[1]->data, -1);
+    CU_ASSERT_EQUAL(array_list->array[2]->data, 30);
+
+    delete_list(array_list);
+}
+
+void testGet()
+{
+    TArrayList *array_list = create_array_list(0);
+
+    for (int i = 0; i < 10; i++)
+    {
+        add(array_list, (TData){(i + 1) * 10});
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        equals_tdata(*array_list->array[i], get(array_list, i));
+    }
+
+    delete_list(array_list);
+}
+
+void testEmpty()
+{
+    TArrayList *array_list = create_array_list(0);
+
+    CU_ASSERT(empty(array_list));
+
+    for (int i = 0; i < 10000; i++)
+    {
+        add(array_list, (TData){0});
+    }
+
+    CU_ASSERT_FALSE(empty(array_list));
+
+    clear(array_list);
+
+    CU_ASSERT(empty(array_list));
+
+    delete_list(array_list);
+}
+
 int main()
 {
     CU_initialize_registry();
@@ -178,8 +240,11 @@ int main()
     CU_add_test(suite, "Insert At Test", testInsertAt);
     CU_add_test(suite, "Remove At Test", testRemoveAt);
     CU_add_test(suite, "Remove All Test", testRemoveAll);
-
+    CU_add_test(suite, "Malloc Array List Test", testMallocArrayList);
     CU_add_test(suite, "Clear Test", testClear);
+    CU_add_test(suite, "Set Test", testSet);
+    CU_add_test(suite, "Get Test", testGet);
+    CU_add_test(suite, "Empty Test", testEmpty);
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
