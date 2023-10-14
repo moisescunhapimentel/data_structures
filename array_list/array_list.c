@@ -89,6 +89,8 @@ TArrayList *create_array_list(int length)
     malloc_array_list(array_list, length);
 
     initial_values(array_list);
+
+    return array_list;
 }
 
 void delete_list(TArrayList *array_list)
@@ -161,6 +163,8 @@ int insert_at(TArrayList *array_list, TData data, int position)
     array_list->array[position] = p_tdata;
 
     array_list->size++;
+
+    return 1;
 }
 
 void malloc_array_list(TArrayList *array_list, int length)
