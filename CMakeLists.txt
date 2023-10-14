@@ -13,7 +13,7 @@ foreach(PASTA ${PASTAS})
         target_include_directories(${PASTA} PUBLIC ${PASTA})
 
         add_executable(${PASTA}_test ${PASTA}/test/${PASTA}_test.c)
-        target_link_libraries(${PASTA}_test ${PASTA} cunit)
+        target_link_libraries(${PASTA}_test ${PASTA} cunit m)
 
         add_test(NAME ${PASTA}_test COMMAND ${PASTA}_test)
     endif()
