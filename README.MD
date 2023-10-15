@@ -8,7 +8,7 @@ This repository contains various data structures implemented in C programming la
 - [How to Use](#how-to-use)
 - [Contributing](#contributing)
 - [Running Tests with Docker](#running-tests-with-docker)
-<!-- - [License](#license) -->
+- [License](#license)
 
 ## List of Data Structures
 
@@ -90,3 +90,7 @@ If, for some reason, you don't see the output of ctest after running the first c
 ```bash
 $docker logs data-structures
 ```
+
+## License
+
+This project is licensed under the terms of the [MIT License](LICENSE).
