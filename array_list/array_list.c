@@ -31,6 +31,11 @@ TData *copy_tdata(TData *tData)
     return p_copy_tdata;
 }
 
+int contains(TArrayList *array_list, TData data)
+{
+    return index_of(array_list, data) != -1;
+}
+
 void clear(TArrayList *array_list)
 {
     check_null_array_list(array_list);
@@ -122,6 +127,19 @@ TData get(TArrayList *array_list, int position)
     check_index_range(array_list, position);
 
     return *array_list->array[position];
+}
+
+int index_of(TArrayList *array_list, TData data)
+{
+    for (int i = 0; i < array_list->size; i++)
+    {
+        if (equals_tdata(*array_list->array[i], data))
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 void initial_values(TArrayList *array_list)
