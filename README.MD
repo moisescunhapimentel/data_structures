@@ -65,6 +65,20 @@ Diagram of the example above:
         └── linked_list_test.c
 ```
 
+Well, if you don't want to go through all that trouble when starting a new data structure, I recommend using the `Makefile` in the root of this repository. It is capable of generating the folder structure by specifying only the name of the new data structure.
+
+In the project's root, you simply need to run:
+
+```bash
+$make create_project PROJECT=<new_data_structure>
+```
+
+For instance, if I want to create a new data structure called `linked_list`, the command would be:
+
+```bash
+$make create_project PROJECT=linked_list
+```
+
 ## Running Tests with Docker
 
 To simplify our development process, we will use `Docker` to run tests locally on your machine. You need to have `Docker` installed.
