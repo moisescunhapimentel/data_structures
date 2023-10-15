@@ -252,6 +252,40 @@ void testContains()
     delete_list(array_list);
 }
 
+void testReversed()
+{
+
+    TArrayList *array_list = create_array_list(0);
+
+    int SIZE = 10000;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        add(array_list, (TData){0});
+    }
+
+    TArrayList *reversed_array_list = reversed(array_list);
+
+    CU_ASSERT_EQUAL(array_list->size, SIZE);
+    CU_ASSERT_EQUAL(reversed_array_list->size, SIZE);
+
+    int equal = 1;
+
+    for (int i = 0; i < array_list->size; i++)
+    {
+        if (equals_tdata(*array_list->array[i], *reversed_array_list->array[SIZE - 1 - i]))
+        {
+            equal = 0;
+            break;
+        }
+    }
+
+    CU_ASSERT(equal);
+
+    delete_list(array_list);
+    delete_list(reversed_array_list);
+}
+
 int main()
 {
     CU_initialize_registry();
