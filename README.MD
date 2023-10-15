@@ -16,8 +16,9 @@ This repository contains various data structures implemented in C programming la
 2. [Doubly Linked List](./doubly_linked_list): Implementation of a doubly linked list.
 3. [Circular Linked List](./circular_linked_list): Implementation of a circular linked list.
 4. [Doubly Circular Linked List](./doubly_circular_linked_list): Implementation of a doubly circular linked list.
-5. [Queue](./queue): Implementation of a queue.
-5. [Stack](./stack): Implementation of a stack.
+5. [Array List](./array_list): Implementation of a array list.
+6. [Queue](./queue): Implementation of a queue.
+7. [Stack](./stack): Implementation of a stack.
 
 Each folder contains detailed explanations, source code, and usage examples for the respective data structure.
 
@@ -49,7 +50,7 @@ To add a new data structure, you need to follow a set of rules.
 
 5. Inside the folder, create a subfolder named test.
 
-6. Inside the test subfolder, create a .c file with the name chosen in step 2, appending _test to the end of the filename.
+6. Inside the test subfolder, create a .c file with the name chosen in step 2, appending \_test to the end of the filename.
 
 For example, if you choose `linked_list` in step 2, you will create the `linked_list/` folder. Inside `linked_list/`, you will have two files, `linked_list.h` and `linked_list.c.` In addition to these files, there is a `test/` folder. Inside `test/`, you will find `linked_list_test.c.`
 
@@ -77,11 +78,13 @@ When you make code changes, follow these steps:
 ```bash
 $docker compose up --build
 ```
+
 If you have already run the previous command and haven't made further code changes, you can run:
 
 ```bash
 $docker compose up
 ```
+
 If, for some reason, you don't see the output of ctest after running the first command, you can check the information with:
 
 ```bash
