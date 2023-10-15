@@ -36,6 +36,14 @@ int add(TArrayList *array_list, TData data);
 void clear(TArrayList *array_list);
 
 /**
+ * @brief Creates a safe copy of [TArrayList]
+ *
+ * @param array_list Parameter that receives the pointer to [TArrayList] to be copied
+ * @return Returns a new pointer, a copy of [TArrayList*]
+ */
+TArrayList *copy_array_list(TArrayList *array_list);
+
+/**
  * @brief Creates a safe copy of [TData]
  *
  * @param tData Parameter that receives the pointer to [TData] to be copied
@@ -178,6 +186,14 @@ void remove_at(TArrayList *array_list, int position);
  * @param data Parameter containing the [TData] to be removed
  */
 void remove_all(TArrayList *array_list, TData data);
+
+/**
+ * @brief Reverses all elements in the [TArrayList]
+ *
+ * @param array_list Parameter containing the [TArrayList]
+ * @return Returns a new [TArrayList] pointer with the elements reversed
+ */
+TArrayList *reversed(TArrayList *array_list);
 
 /**
  * @brief Change the value of [TData] at a specific position
