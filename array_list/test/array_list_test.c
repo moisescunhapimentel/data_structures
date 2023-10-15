@@ -210,6 +210,48 @@ void testEmpty()
     delete_list(array_list);
 }
 
+void testIndexOf()
+{
+    TArrayList *array_list = create_array_list(0);
+
+    CU_ASSERT_EQUAL(index_of(array_list, (TData){0}), -1);
+
+    for (int i = 0; i < 10; i++)
+    {
+        add(array_list, (TData){(i + 1) * 10});
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        CU_ASSERT_EQUAL(index_of(array_list, (TData){(i + 1) * 10}), i);
+    }
+
+    CU_ASSERT_EQUAL(index_of(array_list, (TData){0}), -1);
+
+    delete_list(array_list);
+}
+
+void testContains()
+{
+    TArrayList *array_list = create_array_list(0);
+
+    CU_ASSERT_FALSE(contains(array_list, (TData){0}));
+
+    for (int i = 0; i < 10; i++)
+    {
+        add(array_list, (TData){(i + 1) * 10});
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        CU_ASSERT(contains(array_list, (TData){(i + 1) * 10}));
+    }
+
+    CU_ASSERT_FALSE(contains(array_list, (TData){0}));
+
+    delete_list(array_list);
+}
+
 int main()
 {
     CU_initialize_registry();
@@ -223,6 +265,8 @@ int main()
     CU_add_test(suite, "Set Test", testSet);
     CU_add_test(suite, "Get Test", testGet);
     CU_add_test(suite, "Empty Test", testEmpty);
+    CU_add_test(suite, "Index Of Test", testIndexOf);
+    CU_add_test(suite, "Contains Test", testContains);
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();

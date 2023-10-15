@@ -35,7 +35,21 @@ int add(TArrayList *array_list, TData data);
  */
 void clear(TArrayList *array_list);
 
+/**
+ * @brief Creates a safe copy of [TData]
+ *
+ * @param tData Parameter that receives the pointer to [TData] to be copied
+ * @return Returns a new pointer, a copy of [TData*]
+ */
 TData *copy_tdata(TData *tData);
+
+/**
+ * @brief Checks if [TArrayList] contains [TData]
+ *
+ * @param array_list Parameter containing the [TArrayList]
+ * @return Returns 1 if [TArrayList] contains [TData], and 0 otherwise
+ */
+int contains(TArrayList *array_list, TData data);
 
 /**
  * @brief Check if the index is valid
@@ -102,6 +116,14 @@ int empty(TArrayList *array_list);
  * @brief Gets the element of [TArrayList] starting at position.
  */
 TData get(TArrayList *array_list, int position);
+
+/**
+ * @brief Index of [TData] in [TArrayList]
+ *
+ * @param array_list Parameter containing the [TArrayList]
+ * @return Returns the index if [TArrayList] contains [TData], and -1 otherwise
+ */
+int index_of(TArrayList *array_list, TData data);
 
 /**
  * @brief Add a [TData] at a specified position in the [TArrayList]
