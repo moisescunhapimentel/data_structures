@@ -23,6 +23,18 @@ int add(TArrayList *array_list, TData data)
     return 1;
 }
 
+TArrayList *copy_array_list(TArrayList *array_list)
+{
+    TArrayList *p_copy_array_list = create_array_list(array_list->size);
+
+    for (int i = 0; i < array_list->size; i++)
+    {
+        add(p_copy_array_list, *array_list->array[i]);
+    }
+
+    return p_copy_array_list;
+}
+
 TData *copy_tdata(TData *tData)
 {
     TData *p_copy_tdata = create_tdata();
@@ -269,6 +281,22 @@ void remove_all(TArrayList *array_list, TData data)
     }
 
     array_list->size -= jump;
+}
+
+TArrayList *reversed(TArrayList *array_list)
+{
+    check_null_array_list(array_list);
+
+    TArrayList *reveserd_array_list = copy_array_list(array_list);
+
+    for (int i = 0; i < array_list->size / 2; i++)
+    {
+        TData *tdata = reveserd_array_list->array[i];
+        reveserd_array_list->array[i] = reveserd_array_list->array[array_list->size - 1 - i];
+        reveserd_array_list->array[array_list->size - 1 - i] = tdata;
+    }
+
+    return reveserd_array_list;
 }
 
 void set(TArrayList *array_list, TData data, int position)
