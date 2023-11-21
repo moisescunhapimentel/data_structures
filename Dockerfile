@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN rm -rf /app/build/* && rm -rf /app/logs && mkdir -p build && cd build && cmake .. && make
+RUN mkdir -p build && cd build && cmake .. && make
 
 WORKDIR /app/build
 
